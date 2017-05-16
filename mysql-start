@@ -1,0 +1,18 @@
+#!/bin/sh
+timeout=60
+service mysql start
+status=$?
+while [ $status -ne 0 ]
+    do
+      timeout=$(($timeout - 1))
+      if [ $timeout -eq 0 ]; then
+        echo -e "\nCould not connect to database server. Aborting..."
+        exit 1
+      fi
+      echo -n "."
+      sleep 1
+service mysql start
+status=$?
+done
+mysqladmin -u root password root
+echo -n "OK"
