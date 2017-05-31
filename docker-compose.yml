@@ -1,0 +1,18 @@
+web:
+  image: xduh/sylius
+  ports:
+    - "80:80"
+  links:
+    - mysql
+  env_file:
+    - .env
+  working_dir: /var/www
+  command: php bin/console server:start
+  volumes:
+  - ./app:/var/www
+  expose:
+  - 8000
+mysql:
+  image: mysql:5.6
+  env_file:
+    - .env
